@@ -1,4 +1,5 @@
 basa = []
+# My programm on Python
 def new():
     global nums
     name = input("имя, фамилию, отчество: ")
