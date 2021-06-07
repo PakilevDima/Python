@@ -1,46 +1,49 @@
-basa = []
 # My programm on Python
 def new():
     global nums
     name = input("имя, фамилию, отчество: ")
-    if name in basa:
-        print('Такой уже есть')
-        return None
-    nums += 1
-    yes = input(f"Вы точно хотите добавить {name} ")
+    with open('basa_name.txt') as basa_new:
+        if name in basa_new:
+            print('Такой уже есть')
+            return None
+    yes = input(f"Вы точно хотите добавить {name}\n ")
     if yes == 'да':
-        basa.append(name)
-        print(f'Вы добавили {name}')
-    else:
-        print(f"Вы не добавили {name}")
+        with open('basa_name.txt', 'a') as basa_new:
+            basa_new.write(f'{name}')
+            print(f'Вы добавили {name}')
+            return None
+    print(f"Вы не добавили {name}")
 def delete():
     global basa
     delete_name = input("Введите имя, фамилию, отчество кого хотите удалить: ")
     if delete_name in basa:
-        yes = input(f"Вы точно хотите удалить{delete_name} ")
+        yes = input(f"Вы точно хотите удалить{delete_name}\n ")
         if yes == 'да':
             basa.pop(basa.index(delete_name))
-    else:
-        print('Такого нет')
+            return None
+    print('Такого нет')
 def internet():
     name = input("имя, фамилию, отчество: ")
-    if name in basa:
-        print('Есть такой')
-    else:
-        print('Нет таких')
+    with open('basa_name.txt') as basa_new:
+        if name in basa_new:
+            print('Есть такой')
+            return None
+        print("Таких нет")
 def oll():
-    for i in basa:
-        print(i)
-        print()
+    with open('basa_name.txt') as basa_new:
+        for i in basa_new:
+            print(f'{i}\n')
 def redact():
     name = input('Напишите старое имя, фамилию, отчество: ')
-    if name in basa:
-        name_new = input("Введите новое имя, фамилию, отчество: ")
-        yes = input(f'Вы точно хотите заминить {name} на {name_new} ')
-        if yes == 'да':
-            ind = basa.index(name)
-            basa.pop(ind)
-            basa.insert(ind, name_new)
+    with open('basa_name.txt') as basa_new:
+        if name in basa_new:
+            name_new = input("Введите новое имя, фамилию, отчество: ")
+            yes = input(f'Вы точно хотите заминить {name} на {name_new}\n ')
+            if yes == 'да':
+                with open('basa_name.txt', 'a') as basa_new:
+                    basa_new.write(name_new)
+                    print(f'Вы заменили {name} на {name_new}')
+                    return None
 while True:
     print('Введите число: '
           '\n1.Найти'
@@ -60,4 +63,3 @@ while True:
         oll()
     if num == 3:
         redact()
-    print(basa)
